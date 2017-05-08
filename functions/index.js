@@ -17,6 +17,7 @@ exports.sendOutInvites = functions.database
 			const eventName = post.name
 			const eventDescription = post.tagline
 			const eventHostEmail = post.hostEmail
+			var rsvpAppLink = "rsvp://?eventId="+eventId
 			var rsvpLink = "https://fir-logindemo-e7938.firebaseapp.com/test.html?eventId="+eventId 
 			var message = "Event " + eventName + " is being hosted on "+ eventTime + " at " + eventLocation + " Dont forget to rsvp in the link below :)"
 
@@ -24,12 +25,13 @@ exports.sendOutInvites = functions.database
 			var email = emails[i]
 			console.log("sending emails to: ", email)
 			rsvpLink = rsvpLink + "&guestEmail="+email+"&eventName="+eventName+"&eventLocation="+eventLocation+"&eventTime="+eventTime
-			sendEmail(email, eventHostEmail, eventName, message, rsvpLink)
+// 			rsvpAppLink = rsvpAppLink + "&guestEmail="+email+"&eventName="+eventName+"&eventLocation="+eventLocation+"&eventTime="+eventTime
+			sendEmail(email, eventHostEmail, eventName, message, rsvpLink);//, rsvpAppLink)
 			}
 		});
 
 
-function sendEmail(email, hostemail, eventname, message, rsvpLink) {
+function sendEmail(email, hostemail, eventname, message, rsvpLink){//, rsvpAppLink) {
   const mailOptions = {
     from: "Party planners "+ hostemail,
     to: email
@@ -37,6 +39,7 @@ function sendEmail(email, hostemail, eventname, message, rsvpLink) {
 
   console.log(message , rsvpLink)
   mailOptions.subject = "You are invited to "+ eventname+" !" ;
+//   var htmlMsg = "<body>" + message + "<br /><a href="+rsvpLink+" "+rsvpAppLink+">RSVP</a> </body>"
   var htmlMsg = "<body>" + message + "<br /><a href="+rsvpLink+">RSVP</a> </body>"
   mailOptions.html= htmlMsg
   return mailTransport.sendMail(mailOptions).then(() => {
