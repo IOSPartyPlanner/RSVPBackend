@@ -23,7 +23,7 @@ exports.sendOutInvites = functions.database
 		for(i in emails){
 			var email = emails[i]
 			console.log("sending emails to: ", email)
-			rsvpLink = rsvpLink + "&guestEmail="+email
+			rsvpLink = rsvpLink + "&guestEmail="+email+"&eventName="+eventName+"&eventLocation="+eventLocation+"&eventTime="+eventTime
 			sendEmail(email, eventHostEmail, eventName, message, rsvpLink)
 			}
 		});
