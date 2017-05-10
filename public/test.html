@@ -13,24 +13,34 @@ body{
     width: 100%;
     height: 100%;
     z-index: 1;
-    background-color: hsla(0,0%,100%,0.20);
+    background-color: hsla(0,0%,100%,0.40);
     background-blend-mode: overlay;
     background-repeat: no-repeat;
     font-family: "helvetica neue";
-    font-size: 40px;
+    font-size: 60px;
     text-align:center;
+    font-weight: light;
     
 }
+ input[type=submit]
+{
+    font-size: 40px; 
+    font-family: "helvetica neue";
+    background-color: #ffffff;
+}
+
+ input[type='radio'] { transform: scale(2); }
+
 </style>
 </head>
 <body> 
-		<p style='font-size:50px'>RSVP</p>
+		<p style='font-size:80px'>RSVP</p>
 </body>
 
 	
 <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
 <script>
-  // Initialize Firebase
+
   var config = {
     apiKey: "AIzaSyCPzNpaQNey0NHBK3yjpXJv_HfZJ8NRRAY",
     authDomain: "fir-logindemo-e7938.firebaseapp.com",
@@ -67,13 +77,23 @@ body{
 	var eventTime = GetURLParameter("eventTime");
 	document.write("You are invited to " + eventName + "<br> which is on <br>"+ eventTime + " at <br>" + eventLocation)
 	var pageUrl = window.location.href;
-    document.getElementById("pageUrl").innerHTML = pageUrl;
+//     document.getElementById("pageUrl").innerHTML = pageUrl;
 
-	var rsvp="rsvp://"+window.location.search;
-	window.location = rsvp
-    	setTimeout(function () {
-		   window.location = pageUrl;
-	    }, 10000);
+	var rsvp = "rsvp://"+window.location.search;
+// 	window.alert(rsvp);
+
+// 	document.location = rsvp;
+//     setTimeout(function () {
+// 		   window.location = pageUrl;
+// 	}, 100000);
+
+
+	window.location.replace(rsvp);
+
+
+	setTimeout(function() {
+	   window.location=pageUrl;
+	}, 10000);
 
 
 	function writeUserData(response) {
@@ -109,9 +129,7 @@ body{
     <form action="index.html" onsubmit="checked()" style='text-align:left;margin-left:45%' id="rsvp">
 	    	<input type="radio" name="response" id="Yes" value="Yes"> Yes <br />
     		<input type="radio" name="response" id="Maybe" value="Maybe"> Maybe <br />
-    		<input type="radio"  name="response" id="No" value="No"> No <br />
-    		<input type="submit" value="Send">
-    </form>		
-   <!--  <button type="button" onclick="checked()">send</button> -->
-    
+    		<input type="radio"  name="response" id="No" value="No"> No <br /><br />
+    		<input type="submit" id="Send" value="Send" style="height: 100px; width: 150px">
+    </form>		    
 </html>
